@@ -1,0 +1,29 @@
+{
+  "description": "ГДЗ Байдена",
+  "manifest_version": 3,
+  "name": "Forbidden GDZ",
+  "version": "2.0",
+  "homepage_url": "https://t.me/gdz_forbidden",
+  "permissions": [
+    "webRequest",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://learningapps.org/",
+    "https://stepik.org/",
+    "https://docs.google.com/"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "64": "icons/64.png"
+  },
+  "action": {
+    "default_popup": "dist/index.html"
+  }
+}
