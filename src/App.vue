@@ -1,47 +1,50 @@
-<template>
-  <div>
-    <div>
-      <button v-on:click="addLike">Like</button>
-      <button v-on:click="addDislike">Dislike</button>
-      <button v-on:click="test">Test</button>
-    </div>
-    <div>likes <strong>{{ likes }}</strong></div>
-    <div>dislikes <strong>{{ dislikes }}</strong></div>
-    <div>message <strong>{{ message }}</strong></div>
-  </div>
-</template>
-
 <script>
+import Header from "@/components/Header.vue";
+import Stepik from "@/pages/Stepik.vue";
+import LearningApps from "@/pages/LearningApps.vue";
+import GoogleForms from "@/pages/GoogleForms.vue";
+import TabsService from "@/services/TabsService";
+
 export default {
+  components: {GoogleForms, LearningApps, Stepik, Header},
   data() {
+    this.initializeSite()
     return {
-      likes: 0,
-      dislikes: 0,
-      message: "none"
+      site: "none"
     }
   },
   methods: {
-    addLike() {
-      this.likes++;
+    chooseSite(value) {
+      this.site = value
     },
-    addDislike() {
-      this.dislikes++;
-    },
-    test() {
-      chrome.tabs.query({active: true}, (tabs) => {
-        let tab = tabs[0];
-        if (tab) {
-          console.log(tab.url)
-          this.message = tab.url
-        } else {
-          this.message = "error"
+
+    initializeSite() {
+      TabsService.getActiveTabUrl((url) => {
+        if (/https:\/\/stepik.org\/*/.test(url)) {
+          this.site = "stepik"
+        } else if (/https:\/\/learningapps.org\/*/.test(url)) {
+          this.site = "learning_apps"
+        } else if (/https:\/\/docs.google.com\/forms\/d\/e\/*/.test(url)) {
+          this.site = "google_forms"
         }
       })
     }
-  }
+  },
 }
 </script>
 
-<style scoped>
+<template>
+  <div class="app">
+    <Header :current_site="site" @choose="chooseSite"/>
+    <Stepik v-if="site === 'stepik'"/>
+    <LearningApps v-if="site === 'learning_apps'"/>
+    <GoogleForms v-if="site === 'google_forms'"/>
+  </div>
+</template>
 
+<style>
+body {
+  width: 300px;
+  margin: 0;
+}
 </style>
