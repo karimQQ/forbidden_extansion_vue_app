@@ -5,13 +5,15 @@ async function createRequest(url) {
         console.log("Correct ans!")
         for (const submission of res['submissions']) {
             if (submission['status'] === "correct") {
+                console.log(submission)
                 const reply = submission['reply']
+                const time = new Date(submission['time']) / 1000
                 const params = url.split('?')[1].split('&').reduce(function (p, e) {
                     const a = e.split('=');
                     p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
                     return p;
                 }, {});
-                fetch("https://forbiddengdz.ru/api/stepik/", {
+                fetch("https://forbiddengdz.ru/api/stepik/answers", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -19,7 +21,8 @@ async function createRequest(url) {
                     body: JSON.stringify({
                         'reply': reply,
                         'step': params['step'],
-                        'user': params['user']
+                        'user': params['user'],
+                        'time': time
                     })
                 })
             }

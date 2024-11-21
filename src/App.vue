@@ -1,7 +1,7 @@
 <script>
 import Header from "@/components/Header.vue";
-import Stepik from "@/pages/Stepik.vue";
-import LearningApps from "@/pages/LearningApps.vue";
+import Stepik from "@/pages/Stepik/Stepik.vue";
+import LearningApps from "@/pages/LearningApps/LearningApps.vue";
 import GoogleForms from "@/pages/GoogleForms.vue";
 import TabsService from "@/services/TabsService";
 
