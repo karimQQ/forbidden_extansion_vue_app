@@ -2,7 +2,7 @@
 import Header from "@/components/Header.vue";
 import Stepik from "@/pages/Stepik/Stepik.vue";
 import LearningApps from "@/pages/LearningApps/LearningApps.vue";
-import GoogleForms from "@/pages/GoogleForms.vue";
+import GoogleForms from "@/pages/GoogleForms/GoogleForms.vue";
 import TabsService from "@/services/TabsService";
 
 export default {

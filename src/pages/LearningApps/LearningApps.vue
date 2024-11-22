@@ -1,10 +1,11 @@
 <script>
 import MyButton from "@/components/UI/MyButton.vue";
 import LearningAppsService from "@/services/LearningAppsService";
+import SolveButton from "@/components/UI/SolveButton.vue";
 
 export default {
   name: "LearningApps",
-  components: {MyButton},
+  components: {SolveButton, MyButton},
   methods: {
     solveLearningApps() {
       LearningAppsService.solve()
@@ -15,7 +16,7 @@ export default {
 
 <template>
   <div class="learning-apps">
-    <MyButton class="solve-learning-apps-button" @click="solveLearningApps">Решить</MyButton>
+    <SolveButton @click="solveLearningApps">Решить</SolveButton>
   </div>
 </template>
 
@@ -24,11 +25,5 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.solve-learning-apps-button {
-  background-color: mediumspringgreen;
-  width: 290px;
-  margin: 5px;
 }
 </style>

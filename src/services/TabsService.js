@@ -3,7 +3,7 @@ export default class TabsService {
         chrome.tabs.query({active: true}, function (tabs) {
             let tab = tabs[0];
             if (tab) {
-                console.log(tab.url)
+                console.log(tab)
                 callback(tab.url)
             } else {
                 throw "No active tab"

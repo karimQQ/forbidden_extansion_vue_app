@@ -4,10 +4,11 @@ import TabsService from "@/services/TabsService";
 import StepikAnswersService from "@/services/StepikAnswersService";
 import MyButton from "@/components/UI/MyButton.vue";
 import Loader from "@/components/UI/Loader.vue";
+import SolveButton from "@/components/UI/SolveButton.vue";
 
 export default {
   name: "Stepik",
-  components: {Loader, MyButton, StepikAnswers},
+  components: {SolveButton, Loader, MyButton, StepikAnswers},
   data() {
     this.updateAnswers()
     return {
@@ -42,7 +43,7 @@ export default {
     <Loader v-if="is_answers_loading"/>
     <div v-else>
       <StepikAnswers :answers="answers" :current_answer="current_answer" @choose="chooseAnswer"/>
-      <MyButton class="input-button" @click="inputAnswer">Ввести ответ</MyButton>
+      <SolveButton @click="inputAnswer">Ввести ответ</SolveButton>
     </div>
   </div>
 </template>
@@ -56,12 +57,6 @@ export default {
 
 .update-button {
   align-self: flex-end;
-  margin: 5px;
-}
-
-.input-button {
-  background-color: mediumspringgreen;
-  width: 290px;
   margin: 5px;
 }
 </style>
