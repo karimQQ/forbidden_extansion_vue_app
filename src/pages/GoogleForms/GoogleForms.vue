@@ -4,10 +4,11 @@ import GoogleFormsService from "@/services/GoogleFormsService";
 import Loader from "@/components/UI/Loader.vue";
 import GoogleFormsAnswers from "@/pages/GoogleForms/components/GoogleFormsAnswers.vue";
 import MyButton from "@/components/UI/MyButton.vue";
+import SolveButton from "@/components/UI/SolveButton.vue";
 
 export default {
   name: "GoogleForms",
-  components: {MyButton, GoogleFormsAnswers, Loader},
+  components: {SolveButton, MyButton, GoogleFormsAnswers, Loader},
   data() {
     this.updateAnswers()
     this.updateForm()
@@ -33,6 +34,9 @@ export default {
         this.form = form
         this.is_form_loading = false
       })
+    },
+    inputAnswers() {
+      GoogleFormsService.inputAnswers(JSON.parse(JSON.stringify(this.answers)))
     }
   }
 }
@@ -44,6 +48,7 @@ export default {
     <Loader v-if="is_answers_loading || is_form_loading"/>
     <div v-else style="width: 100%">
       <GoogleFormsAnswers :form="form" :answers="answers"/>
+      <SolveButton @click="inputAnswers">Ввести ответ</SolveButton>
     </div>
   </div>
 </template>
