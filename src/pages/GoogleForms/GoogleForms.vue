@@ -5,10 +5,11 @@ import Loader from "@/components/UI/Loader.vue";
 import GoogleFormsAnswers from "@/pages/GoogleForms/components/GoogleFormsAnswers.vue";
 import MyButton from "@/components/UI/MyButton.vue";
 import SolveButton from "@/components/UI/SolveButton.vue";
+import ReplaceAnswersCheckbox from "@/pages/GoogleForms/components/ReplaceAnswersCheckbox.vue";
 
 export default {
   name: "GoogleForms",
-  components: {SolveButton, MyButton, GoogleFormsAnswers, Loader},
+  components: {ReplaceAnswersCheckbox, SolveButton, MyButton, GoogleFormsAnswers, Loader},
   data() {
     this.update()
     return {
@@ -17,7 +18,8 @@ export default {
       is_answers_loading: false,
       is_form_loading: false,
       is_error: false,
-      error_message: ""
+      error_message: "",
+      replaceAnswers: localStorage.getItem("replaceAnswers") === "true"
     }
   },
   methods: {
@@ -42,6 +44,7 @@ export default {
         this.form = form
         this.is_form_loading = false
       }, (error) => {
+        console.log(error)
         this.is_error = true
         this.error_message = error
         this.is_answers_loading = false
@@ -55,7 +58,12 @@ export default {
       this.updateForm()
     },
     inputAnswers() {
-      GoogleFormsService.inputAnswers(JSON.parse(JSON.stringify(this.answers)))
+      GoogleFormsService.inputAnswers(JSON.parse(JSON.stringify(this.answers)),this.replaceAnswers)
+    },
+    changeReplaceAnswers(checked) {
+      this.replaceAnswers = checked
+      localStorage.setItem("replaceAnswers", checked)
+      console.log(checked)
     }
   }
 }
@@ -71,6 +79,7 @@ export default {
     <div v-else style="width: 100%">
       <GoogleFormsAnswers :form="form" :answers="answers"/>
       <SolveButton @click="inputAnswers">Ввести ответ</SolveButton>
+      <ReplaceAnswersCheckbox :checked="replaceAnswers" @changeReplaceAnswers="changeReplaceAnswers"/>
     </div>
   </div>
 </template>

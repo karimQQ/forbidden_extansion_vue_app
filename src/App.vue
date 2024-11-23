@@ -4,9 +4,11 @@ import Stepik from "@/pages/Stepik/Stepik.vue";
 import LearningApps from "@/pages/LearningApps/LearningApps.vue";
 import GoogleForms from "@/pages/GoogleForms/GoogleForms.vue";
 import TabsService from "@/services/TabsService";
+import VersionService from "@/services/VersionService";
+import NewVersionMessage from "@/components/NewVersionMessage.vue";
 
 export default {
-  components: {GoogleForms, LearningApps, Stepik, Header},
+  components: {NewVersionMessage, GoogleForms, LearningApps, Stepik, Header},
   data() {
     this.initializeSite()
     return {
@@ -35,6 +37,7 @@ export default {
 
 <template>
   <div class="app">
+    <NewVersionMessage/>
     <Header :current_site="site" @choose="chooseSite"/>
     <Stepik v-if="site === 'stepik'"/>
     <LearningApps v-if="site === 'learning_apps'"/>
