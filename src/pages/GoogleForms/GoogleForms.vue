@@ -10,22 +10,30 @@ export default {
   name: "GoogleForms",
   components: {SolveButton, MyButton, GoogleFormsAnswers, Loader},
   data() {
-    this.updateAnswers()
-    this.updateForm()
+    this.update()
     return {
       answers: [],
       form: [],
-      is_answers_loading: true,
-      is_form_loading: true
+      is_answers_loading: false,
+      is_form_loading: false,
+      is_error: false,
+      error_message: ""
     }
   },
   methods: {
     updateAnswers() {
       this.is_answers_loading = true
       TabsService.getActiveTabUrl(async (url) => {
-        const form_id = GoogleFormsService.getFormIdByUrl(url)
-        this.answers = await GoogleFormsService.getAnswers(form_id)
-        this.is_answers_loading = false
+        try {
+          const form_id = GoogleFormsService.getFormIdByUrl(url)
+          this.answers = await GoogleFormsService.getAnswers(form_id)
+          this.is_answers_loading = false
+        } catch (e) {
+          this.is_error = true
+          this.error_message = e.message
+          this.is_answers_loading = false
+          this.is_form_loading = false
+        }
       })
     },
     updateForm() {
@@ -33,7 +41,18 @@ export default {
       GoogleFormsService.getForm((form) => {
         this.form = form
         this.is_form_loading = false
+      }, (error) => {
+        this.is_error = true
+        this.error_message = error
+        this.is_answers_loading = false
+        this.is_form_loading = false
       })
+    },
+    update() {
+      this.is_error = false
+      this.error_message = ""
+      this.updateAnswers()
+      this.updateForm()
     },
     inputAnswers() {
       GoogleFormsService.inputAnswers(JSON.parse(JSON.stringify(this.answers)))
@@ -44,8 +63,11 @@ export default {
 
 <template>
   <div class="google-forms">
-    <MyButton class="update-button" @click="updateForm(); updateAnswers()">Обновить</MyButton>
+    <MyButton class="update-button" @click="update">Обновить</MyButton>
     <Loader v-if="is_answers_loading || is_form_loading"/>
+    <div v-else-if="is_error" class="error-message">
+      <p>{{ error_message }}</p>
+    </div>
     <div v-else style="width: 100%">
       <GoogleFormsAnswers :form="form" :answers="answers"/>
       <SolveButton @click="inputAnswers">Ввести ответ</SolveButton>
@@ -63,5 +85,12 @@ export default {
 .update-button {
   align-self: flex-end;
   margin: 5px;
+}
+
+.error-message {
+  color: red;
+  margin: 15px;
+  padding: 5px;
+  font-size: 16px;
 }
 </style>

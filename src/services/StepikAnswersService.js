@@ -2,7 +2,11 @@ class StepikAnswersService {
     API_URL = "https:forbiddengdz.ru/api"
 
     async getLastAnswers(step_id) {
-        return await (await fetch(`${this.API_URL}/stepik/answers/?step=${step_id}&last=true`)).json()
+        try {
+            return await (await fetch(`${this.API_URL}/stepik/answers/?step=${step_id}&last=true`)).json()
+        } catch (e) {
+            throw {message: "Ошибка при получении ответа. Возможно у Байдена сломался сервак."}
+        }
     }
 
     async getAllAnswers(step_id) {
@@ -12,12 +16,16 @@ class StepikAnswersService {
     async getStepIdByUrl(url) {
         const split = url.split(/[? /]+/);
         if (split.indexOf("lesson") === -1 || split.indexOf("step") === -1) {
-            return {status: "Error", message: "Неподходящая страница"}
+            throw {message: "Неподходящая страница"}
         }
         const lesson = split[split.indexOf("lesson") + 1]
         const step = split[split.indexOf("step") + 1]
-        const res = await (await fetch("https://stepik.org/api/lessons/" + lesson)).json()
-        return res["lessons"][0]["steps"][step - 1]
+        try {
+            const res = await (await fetch("https://stepik.org/api/lessons/" + lesson)).json()
+            return res["lessons"][0]["steps"][step - 1]
+        } catch (e) {
+            throw {message: "Ошибка при получении ответа. Проверьте подключение к интернету."}
+        }
     }
 
     on_result_write_stepik_answer(frames) {

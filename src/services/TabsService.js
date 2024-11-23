@@ -6,10 +6,10 @@ export default class TabsService {
         }, (tabs) => {
             let tab = tabs[0];
             if (tab) {
-                console.log(tab)
+                console.log(tab.url)
                 callback(tab.url)
             } else {
-                throw "No active tab"
+                callback("")
             }
         })
     }
