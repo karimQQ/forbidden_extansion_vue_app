@@ -40,26 +40,8 @@ class StepikAnswersService {
                 console.log("ANSWER", answer)
                 chrome.scripting.executeScript(
                     {
-                        target: {tabId: tab.id, allFrames: false},
-                        func: function (answer) {
-                            console.log(answer)
-                            try {
-                                if (answer['number'] === undefined) {
-                                    const inputs = document.querySelectorAll('input.st-input.fill-blanks-quiz__input')
-                                    answer['blanks'].map((e, ind) => {
-                                        inputs[ind].value = e
-                                        inputs[ind].dispatchEvent(new Event('input'))
-                                    })
-                                } else {
-                                    const input = document.querySelector("input.number-quiz__input.number-input")
-                                    input.value = answer['number']
-                                    input.dispatchEvent(new Event('input'))
-                                }
-                                return {status: "Success"}
-                            } catch (e) {
-                                return {status: "Error", message: ["Ошибка при записи ответа", e]}
-                            }
-                        },
+                        target: {tabId: tab.id, allFrames: true},
+                        func: writeStepikAnswers,
                         args: [answer]
                     }, this.on_result_write_stepik_answer
                 )
@@ -67,6 +49,32 @@ class StepikAnswersService {
                 console.log("ERROR")
             }
         })
+    }
+}
+
+function writeStepikAnswers(answer) {
+    console.log(answer)
+    try {
+        if (answer['number'] !== undefined) {
+            const input = document.querySelector("input.number-quiz__input.number-input")
+            input.value = answer['number']
+            input.dispatchEvent(new Event('input'))
+        } else if (answer['blank'] !== undefined) {
+            const inputs = document.querySelectorAll('input.st-input.fill-blanks-quiz__input')
+            answer['blanks'].map((e, ind) => {
+                inputs[ind].value = e
+                inputs[ind].dispatchEvent(new Event('input'))
+            })
+        } else if (answer['text'] !== undefined) {
+            console.log("AYE")
+            const text_editor = document.querySelector('body.rich-text-editor__content')
+            console.log(text_editor)
+            text_editor.innerHTML = answer['text']
+            
+        }
+        return {status: "Success"}
+    } catch (e) {
+        return {status: "Error", message: ["Ошибка при записи ответа", e]}
     }
 }
 
