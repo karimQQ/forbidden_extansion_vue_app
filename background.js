@@ -48,7 +48,7 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
 );
 
 function get_google_forms_solve() {
-    const url = document.querySelector('a').href
+    const url = document.querySelector('a.IrxBzb.TpQm9d').href
     console.log(url)
     return url
 }
@@ -71,7 +71,7 @@ function on_result_get_google_forms_solve(frames) {
 
 chrome.webRequest.onCompleted.addListener(() => {
     setTimeout(() => {
-        chrome.tabs.query({url: ["https://docs.google.com/forms/*/formResponse", "https://docs.google.com/forms/*/alreadyresponded"]}, async function (tabs) {
+        chrome.tabs.query({url: ["https://docs.google.com/forms/*/formResponse*", "https://docs.google.com/forms/*/alreadyresponded*"]}, async function (tabs) {
             for (const tab of tabs) {
                 console.log(tab.url)
                 chrome.scripting.executeScript(
@@ -83,4 +83,4 @@ chrome.webRequest.onCompleted.addListener(() => {
             }
         })
     }, 500)
-}, {urls: ["https://docs.google.com/forms/*/formResponse", "https://docs.google.com/forms/*/alreadyresponded"]})
+}, {urls: ["https://docs.google.com/forms/*/formResponse*", "https://docs.google.com/forms/*/alreadyresponded*"]})
