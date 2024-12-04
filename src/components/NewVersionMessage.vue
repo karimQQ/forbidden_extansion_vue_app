@@ -4,9 +4,9 @@ import VersionService from "@/services/VersionService";
 export default {
   name: "NewVersionMessage",
   data() {
-    this.checkVersion()
     return {
-      isVersionActual: true
+      isVersionActual: true,
+      extensionUrl: ""
     }
   },
   methods: {
@@ -16,15 +16,25 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+    async getUrl() {
+      try {
+        this.extensionUrl = await VersionService.getUrl()
+      } catch (e) {
+        console.log(e)
+      }
     }
+  },
+  mounted() {
+    this.checkVersion()
+    this.getUrl()
   }
 }
 </script>
 
 <template>
   <div v-if="!isVersionActual" class="new-version">
-    У расширения появилась новая версия, обновиться можно <a target="_blank"
-                                                             href="https://chromewebstore.google.com/detail/forbidden-gdz/enjlnfchjaclpbnmmmomndedlaemoeip">здесь</a>
+    У расширения появилась новая версия, обновиться можно <a target="_blank" :href="extensionUrl">здесь</a>
   </div>
 </template>
 
