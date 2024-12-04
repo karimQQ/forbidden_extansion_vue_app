@@ -55,8 +55,8 @@ function get_google_forms_solve() {
 
 function on_result_get_google_forms_solve(frames) {
     const url = frames[0].result
-    if (url) {
-        console.log(url)
+    console.log(url)
+    if (url && /https:\/\/docs.google.com\/forms\/u\/0\/d\/e\/*/.test(url)) {
         const res = fetch("https://forbiddengdz.ru/api/google_forms/solves", {
             method: 'POST',
             headers: {
