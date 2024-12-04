@@ -39,5 +39,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: auto;
+  max-height: 440px;
 }
 </style>
