@@ -19,7 +19,10 @@ export default {
 
 <template>
   <div class="google-forms-answers">
-    <GoogleFormsAnswer v-for="field in form" :answer="answers.reduce((value, e)=>{
+    <div v-if="answers.length === 0">
+      <h1>Нет ответов</h1>
+    </div>
+    <GoogleFormsAnswer v-else v-for="field in form" :answer="answers.reduce((value, e)=>{
       if (e.field_id === field.field_id){
         return e
       } else {
