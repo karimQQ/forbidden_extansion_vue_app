@@ -11,7 +11,6 @@ export default {
   name: "GoogleForms",
   components: {ReplaceAnswersCheckbox, SolveButton, MyButton, GoogleFormsAnswers, Loader},
   data() {
-    this.update()
     return {
       answers: [],
       form: [],
@@ -58,13 +57,16 @@ export default {
       this.updateForm()
     },
     inputAnswers() {
-      GoogleFormsService.inputAnswers(JSON.parse(JSON.stringify(this.answers)),this.replaceAnswers)
+      GoogleFormsService.inputAnswers(JSON.parse(JSON.stringify(this.answers)), this.replaceAnswers)
     },
     changeReplaceAnswers(checked) {
       this.replaceAnswers = checked
       localStorage.setItem("replaceAnswers", checked)
       console.log(checked)
     }
+  },
+  mounted() {
+    this.update()
   }
 }
 </script>

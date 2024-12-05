@@ -10,7 +10,6 @@ export default {
   name: "Stepik",
   components: {SolveButton, Loader, MyButton, StepikAnswers},
   data() {
-    this.updateAnswers()
     return {
       is_answers_loading: true,
       is_error: false,
@@ -43,6 +42,9 @@ export default {
     chooseAnswer(value) {
       this.current_answer = value
     }
+  },
+  mounted() {
+    this.updateAnswers()
   }
 }
 </script>

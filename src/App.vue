@@ -10,7 +10,6 @@ import NewVersionMessage from "@/components/NewVersionMessage.vue";
 export default {
   components: {NewVersionMessage, GoogleForms, LearningApps, Stepik, Header},
   data() {
-    this.initializeSite()
     return {
       site: "none"
     }
@@ -32,6 +31,9 @@ export default {
       })
     }
   },
+  mounted() {
+    this.initializeSite()
+  }
 }
 </script>
 
