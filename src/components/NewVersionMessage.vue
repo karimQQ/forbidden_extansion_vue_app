@@ -6,7 +6,7 @@ export default {
   data() {
     return {
       isVersionActual: true,
-      extensionUrl: ""
+      extensionUrl: undefined
     }
   },
   methods: {
@@ -33,7 +33,7 @@ export default {
 </script>
 
 <template>
-  <div v-if="!isVersionActual" class="new-version">
+  <div v-if="!isVersionActual && extensionUrl" class="new-version">
     У расширения появилась новая версия, обновиться можно <a target="_blank" :href="extensionUrl">здесь</a>
   </div>
 </template>

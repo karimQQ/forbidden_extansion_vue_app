@@ -66,11 +66,9 @@ function writeStepikAnswers(answer) {
                 inputs[ind].dispatchEvent(new Event('input'))
             })
         } else if (answer['text'] !== undefined) {
-            console.log("AYE")
             const text_editor = document.querySelector('body.rich-text-editor__content')
             console.log(text_editor)
             text_editor.innerHTML = answer['text']
-            
         }
         return {status: "Success"}
     } catch (e) {
