@@ -69,6 +69,39 @@ function writeStepikAnswers(answer) {
             const text_editor = document.querySelector('body.rich-text-editor__content')
             console.log(text_editor)
             text_editor.innerHTML = answer['text']
+            // const keydown = new KeyboardEvent('keydown', {
+            //     bubbles: true,
+            //     cancelable: true,
+            //     composed: true,
+            //     key: "q",
+            //     keyCode: 81,
+            //     location: "General keys",
+            //     code: "KeyQ",
+            //     which: 81
+            // })
+            // const keydownRepeat = new KeyboardEvent('keydown', {
+            //     bubbles: true,
+            //     cancelable: true,
+            //     composed: true,
+            //     key: "q",
+            //     keyCode: 81,
+            //     location: "General keys",
+            //     code: "KeyQ",
+            //     which: 81,
+            //     repeat: true
+            // })
+            // const keyup = new KeyboardEvent('keyup', {
+            //     bubbles: true,
+            //     cancelable: true,
+            //     composed: true,
+            //     key: "q",
+            //     keyCode: 81,
+            //     location: "General keys",
+            //     code: "KeyQ",
+            //     which: 81,
+            // })
+            // text_editor.dispatchEvent(keydown)
+            // text_editor.dispatchEvent(keyup)
         }
         return {status: "Success"}
     } catch (e) {
