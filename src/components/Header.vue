@@ -24,6 +24,7 @@ export default {
     <HeaderSite :value="'stepik'" :current_site="current_site" @choose="changeSite">Stepik</HeaderSite>
     <HeaderSite :value="'learning_apps'" :current_site="current_site" @choose="changeSite">Learning Apps</HeaderSite>
     <HeaderSite :value="'google_forms'" :current_site="current_site" @choose="changeSite">Google Forms</HeaderSite>
+    <HeaderSite :value="'kompege'" :current_site="current_site" @choose="changeSite">Kompege</HeaderSite>
   </div>
 </template>
 

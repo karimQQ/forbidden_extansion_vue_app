@@ -14,8 +14,8 @@ export default {
     return {
       answers: [],
       form: [],
-      is_answers_loading: false,
-      is_form_loading: false,
+      is_answers_loading: true,
+      is_form_loading: true,
       is_error: false,
       error_message: "",
       replaceAnswers: localStorage.getItem("replaceAnswers") === "true"
@@ -62,7 +62,6 @@ export default {
     changeReplaceAnswers(checked) {
       this.replaceAnswers = checked
       localStorage.setItem("replaceAnswers", checked)
-      console.log(checked)
     }
   },
   mounted() {

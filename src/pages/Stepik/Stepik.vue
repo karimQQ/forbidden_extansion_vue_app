@@ -56,7 +56,7 @@ export default {
     <div v-else-if="is_error" class="error-message">
       <p>{{ error_message }}</p>
     </div>
-    <div v-else>
+    <div v-else style="width: 100%">
       <StepikAnswers :answers="answers" :current_answer="current_answer" @choose="chooseAnswer"/>
       <SolveButton @click="inputAnswer">Ввести ответ</SolveButton>
     </div>

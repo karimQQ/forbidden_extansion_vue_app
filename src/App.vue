@@ -6,9 +6,10 @@ import GoogleForms from "@/pages/GoogleForms/GoogleForms.vue";
 import TabsService from "@/services/TabsService";
 import VersionService from "@/services/VersionService";
 import NewVersionMessage from "@/components/NewVersionMessage.vue";
+import Kompege from "@/pages/Kompege/Kompege.vue";
 
 export default {
-  components: {NewVersionMessage, GoogleForms, LearningApps, Stepik, Header},
+  components: {Kompege, NewVersionMessage, GoogleForms, LearningApps, Stepik, Header},
   data() {
     return {
       site: "none"
@@ -27,6 +28,8 @@ export default {
           this.site = "learning_apps"
         } else if (/https:\/\/docs.google.com\/forms\/d\/e\/*/.test(url)) {
           this.site = "google_forms"
+        } else if (/https:\/\/kompege.ru\/*/.test(url)) {
+          this.site = "kompege"
         }
       })
     }
@@ -44,12 +47,13 @@ export default {
     <Stepik v-if="site === 'stepik'"/>
     <LearningApps v-if="site === 'learning_apps'"/>
     <GoogleForms v-if="site === 'google_forms'"/>
+    <Kompege v-if="site === 'kompege'"/>
   </div>
 </template>
 
 <style>
 body {
-  width: 300px;
+  width: 350px;
   margin: 0;
 }
 </style>
