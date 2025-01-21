@@ -64,16 +64,20 @@ function getFormData() {
     try {
         const result = []
         for (const field of document.querySelectorAll('.Qr7Oae')) {
-            const s = field.querySelector('div').getAttribute("data-params")
-            const json = JSON.parse(s.substring(4, s.substring(0, s.length - 1).lastIndexOf(']') + 1))
-            console.log(json)
-            const field_id = json[0]
-            const type = json[3]
-            if (type === 0) {
-                result.push({field_id: field_id, type: 0, data: []})
-            } else if (1 <= type && type <= 4) {
-                const data = json[4][0][1].map(e => e[0])
-                result.push({field_id: field_id, type: type, data: data})
+            try {
+                const s = field.querySelector('div').getAttribute("data-params")
+                const json = JSON.parse(s.substring(4, s.substring(0, s.length - 1).lastIndexOf(']') + 1))
+                console.log(json)
+                const field_id = json[0]
+                const type = json[3]
+                if (type === 0) {
+                    result.push({field_id: field_id, type: 0, data: []})
+                } else if (1 <= type && type <= 4) {
+                    const data = json[4][0][1].map(e => e[0])
+                    result.push({field_id: field_id, type: type, data: data})
+                }
+            } catch (e) {
+
             }
         }
         return {status: "success", result: result}
