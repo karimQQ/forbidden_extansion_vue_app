@@ -14,13 +14,16 @@ export default {
     parseText(text) {
       const elem = document.createElement('div')
       elem.innerHTML = text
-      const p = elem.querySelectorAll('p')
-      console.log(p)
       const res = []
-      p.forEach((e) => {
+      elem.querySelectorAll('p').forEach((e) => {
         res.push(e.textContent)
       })
-      console.log(res)
+      elem.querySelectorAll('pre').forEach((e) => {
+        res.push(e.textContent)
+      })
+      if (res.length === 0) {
+        res.push(elem.textContent)
+      }
       return res
     }
   }

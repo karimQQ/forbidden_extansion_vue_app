@@ -2,7 +2,7 @@
   "description": "ГДЗ Байдена",
   "manifest_version": 3,
   "name": "Forbidden GDZ",
-  "version": "2.3",
+  "version": "2.5",
   "homepage_url": "https://forbiddengdz.ru",
   "permissions": [
     "webRequest",

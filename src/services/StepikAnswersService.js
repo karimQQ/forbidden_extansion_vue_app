@@ -58,17 +58,23 @@ function writeStepikAnswers(answer) {
         if (answer['number'] !== undefined) {
             const input = document.querySelector("input.number-quiz__input.number-input")
             input.value = answer['number']
-            input.dispatchEvent(new Event('input'))
+            input.dispatchEvent(new Event('input', {bubbles: true}))
         } else if (answer['blanks'] !== undefined) {
             const inputs = document.querySelectorAll('input.st-input.fill-blanks-quiz__input')
             answer['blanks'].map((e, ind) => {
                 inputs[ind].value = e
-                inputs[ind].dispatchEvent(new Event('input'))
+                inputs[ind].dispatchEvent(new Event('input', {bubbles: true}))
             })
         } else if (answer['text'] !== undefined) {
             const text_editor = document.querySelector('body.rich-text-editor__content')
-            console.log(text_editor)
-            text_editor.innerHTML = answer['text']
+            if (text_editor) {
+                console.log(text_editor)
+                text_editor.innerHTML = answer['text']
+            } else {
+                const input = document.querySelector('textarea')
+                input.value = answer['text']
+                input.dispatchEvent(new Event('input', {bubbles: true}))
+            }
         }
         return {status: "Success"}
     } catch (e) {
