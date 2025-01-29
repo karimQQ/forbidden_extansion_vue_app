@@ -20,7 +20,7 @@ export default {
   <div v-if="task==='i'">
     <KompegeAnswer v-for="answer in answers" :task="answer"/>
   </div>
-  <KompegeAnswer v-else :task="answers[task - 1]"/>
+  <KompegeAnswer v-else :task="answers.filter(e=>e['number']==task)[0]"/>
 </template>
 
 <style scoped>
