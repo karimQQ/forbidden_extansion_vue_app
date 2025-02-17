@@ -64,7 +64,14 @@ class KompegeService {
 
 function getCurrentTask() {
     try {
-        const result = document.querySelector('.task-current').querySelector('p').innerHTML
+        const tasks = document.querySelector('#navTasks').querySelectorAll('.block')
+        console.log(tasks)
+        let result = -1
+        tasks.forEach((e, ind) => {
+            if (e.classList.contains('task-current')) {
+                result = ind - 1
+            }
+        })
         console.log(result)
         return {status: "success", result: result}
     } catch (e) {

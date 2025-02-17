@@ -10,17 +10,17 @@ export default {
       required: true
     },
     task: {
-      type: String
+      type: Number
     }
   }
 }
 </script>
 
 <template>
-  <div v-if="task==='i'">
+  <div v-if="task===-1">
     <KompegeAnswer v-for="answer in answers" :task="answer"/>
   </div>
-  <KompegeAnswer v-else :task="answers.filter(e=>e['number']==task)[0]"/>
+  <KompegeAnswer v-else :task="answers[task]"/>
 </template>
 
 <style scoped>

@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       answers: {},
-      current_task: "",
+      current_task: -1,
       is_answers_loading: true,
       is_task_loading: true,
       is_error: false,
@@ -58,8 +58,8 @@ export default {
       this.updateTask()
     },
     inputAnswers() {
-      if (this.current_task !== "i") {
-        KompegeService.inputAnswers(JSON.parse(JSON.stringify(this.answers["tasks"][this.current_task - 1]["key"])), this.replaceAnswers)
+      if (this.current_task !== -1) {
+        KompegeService.inputAnswers(JSON.parse(JSON.stringify(this.answers["tasks"][this.current_task]["key"])), this.replaceAnswers)
       }
     },
     changeReplaceAnswers(checked) {
@@ -83,8 +83,8 @@ export default {
     </div>
     <div v-else style="width: 100%">
       <KompegeAnswers :answers="answers['tasks']" :task="current_task"/>
-      <SolveButton v-if="current_task !== 'i'" @click="inputAnswers">Ввести ответ</SolveButton>
-      <ReplaceAnswersCheckbox v-if="current_task !== 'i'" :checked="replaceAnswers"
+      <SolveButton v-if="current_task !== -1" @click="inputAnswers">Ввести ответ</SolveButton>
+      <ReplaceAnswersCheckbox v-if="current_task !== -1" :checked="replaceAnswers"
                               @changeReplaceAnswers="changeReplaceAnswers"/>
     </div>
   </div>
