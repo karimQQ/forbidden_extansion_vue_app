@@ -2,7 +2,8 @@ export default class TabsService {
     static getActiveTabUrl(callback) {
         chrome.tabs.query({
             active: true,
-            url: ["https://stepik.org/*", "https://learningapps.org/*", "https://docs.google.com/forms/d/e/*", "https://kompege.ru/*"]
+            url: ["https://stepik.org/*", "https://learningapps.org/*", "https://docs.google.com/forms/d/e/*", "https://kompege.ru/*"],
+            currentWindow: true
         }, (tabs) => {
             let tab = tabs[0];
             if (tab) {

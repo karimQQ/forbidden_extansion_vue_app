@@ -16,7 +16,7 @@ class GoogleFormsService {
     }
 
     getForm(callback, onError) {
-        chrome.tabs.query({active: true, url: "https://docs.google.com/forms/d/e/*"}, (tabs) => {
+        chrome.tabs.query({active: true, url: "https://docs.google.com/forms/d/e/*", currentWindow: true}, (tabs) => {
             let tab = tabs[0];
             if (tab) {
                 chrome.scripting.executeScript(
@@ -40,7 +40,11 @@ class GoogleFormsService {
     }
 
     inputAnswers(answers, replace_answers) {
-        chrome.tabs.query({active: true, url: "https://docs.google.com/forms/d/e/*"}, function (tabs) {
+        chrome.tabs.query({
+            active: true,
+            url: "https://docs.google.com/forms/d/e/*",
+            currentWindow: true
+        }, function (tabs) {
             let tab = tabs[0];
             if (tab) {
                 console.log(tab.url)

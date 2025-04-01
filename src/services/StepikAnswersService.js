@@ -34,7 +34,7 @@ class StepikAnswersService {
     }
 
     inputAnswer(answer) {
-        chrome.tabs.query({active: true, url: "https://stepik.org/*"}, (tabs) => {
+        chrome.tabs.query({active: true, url: "https://stepik.org/*", currentWindow: true}, (tabs) => {
             let tab = tabs[0];
             if (tab) {
                 console.log("ANSWER", answer)

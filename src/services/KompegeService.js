@@ -18,7 +18,7 @@ class KompegeService {
     }
 
     getTask(callback, onError) {
-        chrome.tabs.query({active: true, url: "https://kompege.ru/variant?kim=*"}, (tabs) => {
+        chrome.tabs.query({active: true, url: "https://kompege.ru/variant?kim=*", currentWindow: true}, (tabs) => {
             let tab = tabs[0];
             if (tab) {
                 chrome.scripting.executeScript(
@@ -42,7 +42,11 @@ class KompegeService {
     }
 
     inputAnswers(answer, replace_answers) {
-        chrome.tabs.query({active: true, url: "https://kompege.ru/variant?kim=*"}, function (tabs) {
+        chrome.tabs.query({
+            active: true,
+            url: "https://kompege.ru/variant?kim=*",
+            currentWindow: true
+        }, function (tabs) {
             let tab = tabs[0];
             if (tab) {
                 console.log(tab.url)
