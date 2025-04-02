@@ -42,7 +42,6 @@ export default {
 
 <template>
   <div class="app">
-    <NewVersionMessage/>
     <Header :current_site="site" @choose="chooseSite"/>
     <Stepik v-if="site === 'stepik'"/>
     <LearningApps v-if="site === 'learning_apps'"/>

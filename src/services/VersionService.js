@@ -8,7 +8,9 @@ class VersionService {
     }
 
     async isVersionActual() {
-        return (await this.getLastVersion()) === "2.8"
+        const version = await this.getLastVersion()
+        console.log(version)
+        return version === "2.9"
     }
 
     async getUrl() {
