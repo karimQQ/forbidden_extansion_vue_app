@@ -2,7 +2,7 @@
   "description": "ГДЗ Байдена",
   "manifest_version": 3,
   "name": "Forbidden GDZ",
-  "version": "2.9",
+  "version": "3.0",
   "homepage_url": "https://forbiddengdz.ru",
   "permissions": [
     "webRequest",
@@ -12,7 +12,8 @@
     "https://learningapps.org/",
     "https://stepik.org/",
     "https://docs.google.com/",
-    "https://kompege.ru/"
+    "https://kompege.ru/",
+    "https://education.yandex.ru/"
   ],
   "background": {
     "service_worker": "background.js"

@@ -5,11 +5,11 @@ import Loader from "@/components/UI/Loader.vue";
 import GoogleFormsAnswers from "@/pages/GoogleForms/components/GoogleFormsAnswers.vue";
 import MyButton from "@/components/UI/MyButton.vue";
 import SolveButton from "@/components/UI/SolveButton.vue";
-import ReplaceAnswersCheckbox from "@/pages/GoogleForms/components/ReplaceAnswersCheckbox.vue";
+import MyCheckbox from "@/components/UI/MyCheckbox.vue";
 
 export default {
   name: "GoogleForms",
-  components: {ReplaceAnswersCheckbox, SolveButton, MyButton, GoogleFormsAnswers, Loader},
+  components: {MyCheckbox, SolveButton, MyButton, GoogleFormsAnswers, Loader},
   data() {
     return {
       answers: [],
@@ -80,7 +80,8 @@ export default {
     <div v-else style="width: 100%">
       <GoogleFormsAnswers :form="form" :answers="answers"/>
       <SolveButton @click="inputAnswers">Ввести ответ</SolveButton>
-      <ReplaceAnswersCheckbox :checked="replaceAnswers" @changeReplaceAnswers="changeReplaceAnswers"/>
+      <MyCheckbox :checked="replaceAnswers" :text="'Заменять уже имеющиеся ответы'"
+                  @changeReplaceAnswers="changeReplaceAnswers"/>
     </div>
   </div>
 </template>

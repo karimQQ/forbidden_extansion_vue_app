@@ -1,19 +1,19 @@
 <script>
 import TabsService from "@/services/TabsService";
-import ReplaceAnswersCheckbox from "@/pages/GoogleForms/components/ReplaceAnswersCheckbox.vue";
 import Loader from "@/components/UI/Loader.vue";
 import GoogleFormsAnswers from "@/pages/GoogleForms/components/GoogleFormsAnswers.vue";
 import MyButton from "@/components/UI/MyButton.vue";
 import SolveButton from "@/components/UI/SolveButton.vue";
 import KompegeAnswers from "@/pages/Kompege/components/KompegeAnswers.vue";
 import KompegeService from "@/services/KompegeService";
+import MyCheckbox from "@/components/UI/MyCheckbox.vue";
 
 export default {
   name: "Kompege",
-  components: {KompegeAnswers, SolveButton, MyButton, GoogleFormsAnswers, Loader, ReplaceAnswersCheckbox},
+  components: {MyCheckbox, KompegeAnswers, SolveButton, MyButton, GoogleFormsAnswers, Loader},
   data() {
     return {
-      answers: {},
+      answers: [],
       current_task: -1,
       is_answers_loading: true,
       is_task_loading: true,
@@ -84,8 +84,8 @@ export default {
     <div v-else style="width: 100%">
       <KompegeAnswers :answers="answers['tasks']" :task="current_task"/>
       <SolveButton v-if="current_task !== -1" @click="inputAnswers">Ввести ответ</SolveButton>
-      <ReplaceAnswersCheckbox v-if="current_task !== -1" :checked="replaceAnswers"
-                              @changeReplaceAnswers="changeReplaceAnswers"/>
+      <MyCheckbox v-if="current_task !== -1" :checked="replaceAnswers" :text="'Заменять уже имеющиеся ответы'"
+                  @changeReplaceAnswers="changeReplaceAnswers"/>
     </div>
   </div>
 </template>

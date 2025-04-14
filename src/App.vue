@@ -4,22 +4,18 @@ import Stepik from "@/pages/Stepik/Stepik.vue";
 import LearningApps from "@/pages/LearningApps/LearningApps.vue";
 import GoogleForms from "@/pages/GoogleForms/GoogleForms.vue";
 import TabsService from "@/services/TabsService";
-import VersionService from "@/services/VersionService";
 import NewVersionMessage from "@/components/NewVersionMessage.vue";
 import Kompege from "@/pages/Kompege/Kompege.vue";
+import YandexEducation from "@/pages/YandexEducation/YandexEducation.vue";
 
 export default {
-  components: {Kompege, NewVersionMessage, GoogleForms, LearningApps, Stepik, Header},
+  components: {YandexEducation, Kompege, NewVersionMessage, GoogleForms, LearningApps, Stepik, Header},
   data() {
     return {
       site: "none"
     }
   },
   methods: {
-    chooseSite(value) {
-      this.site = value
-    },
-
     initializeSite() {
       TabsService.getActiveTabUrl((url) => {
         if (/https:\/\/stepik.org\/*/.test(url)) {
@@ -30,6 +26,8 @@ export default {
           this.site = "google_forms"
         } else if (/https:\/\/kompege.ru\/*/.test(url)) {
           this.site = "kompege"
+        } else if (/https:\/\/education.yandex.ru\/ege\/variants\/*/.test(url)) {
+          this.site = "yandex_education"
         }
       })
     }
@@ -42,11 +40,11 @@ export default {
 
 <template>
   <div class="app">
-    <Header :current_site="site" @choose="chooseSite"/>
     <Stepik v-if="site === 'stepik'"/>
     <LearningApps v-if="site === 'learning_apps'"/>
     <GoogleForms v-if="site === 'google_forms'"/>
     <Kompege v-if="site === 'kompege'"/>
+    <YandexEducation v-if="site === 'yandex_education'"/>
   </div>
 </template>
 

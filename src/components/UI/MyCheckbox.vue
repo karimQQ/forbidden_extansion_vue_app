@@ -1,10 +1,13 @@
 <script>
 export default {
-  name: "ReplaceAnswersCheckbox",
+  name: "MyCheckbox",
   props: {
     checked: {
       type: Boolean,
       required: true
+    },
+    text: {
+      type: String
     }
   },
   methods: {
@@ -18,7 +21,7 @@ export default {
 <template>
   <div class="div">
     <input type="checkbox" :checked="checked" @change="check"/>
-    Заменять уже имеющиеся ответы
+    {{text}}
   </div>
 </template>
 
