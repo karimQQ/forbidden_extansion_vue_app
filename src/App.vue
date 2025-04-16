@@ -7,6 +7,7 @@ import TabsService from "@/services/TabsService";
 import NewVersionMessage from "@/components/NewVersionMessage.vue";
 import Kompege from "@/pages/Kompege/Kompege.vue";
 import YandexEducation from "@/pages/YandexEducation/YandexEducation.vue";
+import YandexEducationService from "@/services/YandexEducationService";
 
 export default {
   components: {YandexEducation, Kompege, NewVersionMessage, GoogleForms, LearningApps, Stepik, Header},
@@ -26,7 +27,7 @@ export default {
           this.site = "google_forms"
         } else if (/https:\/\/kompege.ru\/*/.test(url)) {
           this.site = "kompege"
-        } else if (/https:\/\/education.yandex.ru\/ege\/variants\/*/.test(url)) {
+        } else if (YandexEducationService.testUrl(url)) {
           this.site = "yandex_education"
         }
       })

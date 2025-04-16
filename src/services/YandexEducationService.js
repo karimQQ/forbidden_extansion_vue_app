@@ -1,38 +1,63 @@
 class YandexEducationService {
+    testUrl(url) {
+        return /https:\/\/education.yandex.ru\/ege\/variants\/*/.test(url) || /https:\/\/education.yandex.ru\/ege\/collections\/*/.test(url)
+    }
+
     getVariantByUrl(url) {
-        if (!/https:\/\/education.yandex.ru\/ege\/variants\/*/.test(url)) {
-            throw {message: "Неподходящая страница"}
+        if (!this.testUrl(url)) {
+            throw {message: "Неподходящая страница1"}
         }
         const split = url.split(/[? /=]+/);
-        return split[split.indexOf('variants') + 1]
+        if (split.indexOf('variants') !== -1) {
+            return split[split.indexOf('variants') + 1]
+        } else {
+            return split[split.indexOf('collections') + 1]
+        }
     }
 
     getTaskByUrl(url) {
-        if (!/https:\/\/education.yandex.ru\/ege\/variants\/*/.test(url)) {
-            throw {message: "Неподходящая страница"}
+        if (!this.testUrl(url)) {
+            throw {message: "Неподходящая страница2"}
         }
         const split = url.split(/[? /=]+/);
         if (split.indexOf('task') === -1 || split.indexOf('task') === split.length - 1) {
-            throw {message: "Неподходящая страница"}
+            throw {message: "Неподходящая страница3"}
         }
         return split[split.indexOf('task') + 1] - 1
     }
 
-    async getAnswers(variant) {
+    async getToken(url) {
+        const response = await fetch("https://education.yandex.ru/api/v5/get-csrf-token", {
+            "headers": {
+                "accept": "*/*",
+                "sec-fetch-dest": "empty",
+                "sec-fetch-mode": "cors",
+                "sec-fetch-site": "same-origin"
+            },
+            "referrer": `${url}`,
+            "referrerPolicy": "strict-origin-when-cross-origin",
+            "body": null,
+            "method": "GET",
+            "mode": "cors",
+            "credentials": "include"
+        });
+        const data = await response.json();
+        return data["sk"]
+    }
+
+    async getAnswers(url) {
+        const variant = this.getVariantByUrl(url);
+        const token = await this.getToken(url);
         const response = await fetch("https://education.yandex.ru/api/v5/gpttr", {
             "headers": {
                 "accept": "*/*",
-                "accept-language": "ru-RU,ru;q=0.9",
                 "content-type": "application/json",
-                "sec-ch-ua": "\"Google Chrome\";v=\"135\", \"Not-A.Brand\";v=\"8\", \"Chromium\";v=\"135\"",
-                "sec-ch-ua-mobile": "?0",
-                "sec-ch-ua-platform": "\"Windows\"",
                 "sec-fetch-dest": "empty",
                 "sec-fetch-mode": "cors",
                 "sec-fetch-site": "same-origin",
-                "x-csrf-token": "c6a1373bb9b2d217636a4a15efe3bc24e4371497:1744625292"
+                "x-csrf-token": `${token}`
             },
-            "referrer": "https://education.yandex.ru/ege/variants/06f27138-823c-4a8d-b3d5-bd271732db3a/task/3",
+            "referrer": `${url}`,
             "referrerPolicy": "strict-origin-when-cross-origin",
             "body": `[{"type":"public_get_variant_request_item","variant_id":"${variant}"}]`,
             "method": "POST",
@@ -72,7 +97,7 @@ class YandexEducationService {
                     }
                 )
             } else {
-                throw {message: "Неподходящая страница"}
+                throw {message: "Неподходящая страница4"}
             }
         })
     }

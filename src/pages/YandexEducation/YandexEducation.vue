@@ -34,9 +34,8 @@ export default {
       this.is_answers_loading = true
       TabsService.getActiveTabUrl(async (url) => {
         try {
-          const variant = YandexEducationService.getVariantByUrl(url)
           this.current_task = YandexEducationService.getTaskByUrl(url)
-          this.answers = await YandexEducationService.getAnswers(variant)
+          this.answers = await YandexEducationService.getAnswers(url)
           console.log(this.answers)
           this.is_answers_loading = false
         } catch (e) {

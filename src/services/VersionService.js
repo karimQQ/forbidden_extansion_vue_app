@@ -10,7 +10,7 @@ class VersionService {
     async isVersionActual() {
         const version = await this.getLastVersion()
         console.log(version)
-        return version === "3.0"
+        return version === "3.1"
     }
 
     async getUrl() {
