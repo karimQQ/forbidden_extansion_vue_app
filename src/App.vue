@@ -19,11 +19,12 @@ export default {
   methods: {
     initializeSite() {
       TabsService.getActiveTabUrl((url) => {
+        console.log(url)
         if (/https:\/\/stepik.org\/*/.test(url)) {
           this.site = "stepik"
         } else if (/https:\/\/learningapps.org\/*/.test(url)) {
           this.site = "learning_apps"
-        } else if (/https:\/\/docs.google.com\/forms\/d\/e\/*/.test(url)) {
+        } else if (/https:\/\/docs.google.com\/forms\/*/.test(url)) {
           this.site = "google_forms"
         } else if (/https:\/\/kompege.ru\/*/.test(url)) {
           this.site = "kompege"
@@ -42,10 +43,10 @@ export default {
 <template>
   <div class="app">
     <Stepik v-if="site === 'stepik'"/>
-    <LearningApps v-if="site === 'learning_apps'"/>
-    <GoogleForms v-if="site === 'google_forms'"/>
-    <Kompege v-if="site === 'kompege'"/>
-    <YandexEducation v-if="site === 'yandex_education'"/>
+    <LearningApps v-else-if="site === 'learning_apps'"/>
+    <GoogleForms v-else-if="site === 'google_forms'"/>
+    <Kompege v-else-if="site === 'kompege'"/>
+    <YandexEducation v-else-if="site === 'yandex_education'"/>
   </div>
 </template>
 

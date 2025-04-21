@@ -48,23 +48,33 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
 );
 
 function get_google_forms_solve() {
+    function getFormId(url) {
+        const split = url.split(/[? /]+/);
+        if (split.indexOf('e') !== -1) {
+            return split[split.indexOf('e') + 1]
+        }
+        if (split.indexOf('d') !== -1) {
+            return split[split.indexOf('d') + 1]
+        }
+        return split[split.indexOf('forms') + 1]
+    }
+
     const url = document.querySelector('a.IrxBzb.TpQm9d').href
     console.log(url)
-    return url
+    const page = window.location.href
+    return {"url": url, "form_id": getFormId(page)}
 }
 
 function on_result_get_google_forms_solve(frames) {
-    const url = frames[0].result
-    console.log(url)
+    console.log(frames[0].result)
+    const url = frames[0].result.url
     if (url && /https:\/\/docs.google.com\/forms\/u\/0\/d\/e\/*/.test(url)) {
         const res = fetch("https://forbiddengdz.ru/api/google_forms/solves", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                "url": url
-            })
+            body: JSON.stringify(frames[0].result)
         })
     }
 }

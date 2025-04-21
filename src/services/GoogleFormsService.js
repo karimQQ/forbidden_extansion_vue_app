@@ -8,15 +8,21 @@ class GoogleFormsService {
     }
 
     getFormIdByUrl(url) {
-        if (!/https:\/\/docs.google.com\/forms\/d\/e\/*/.test(url)) {
+        if (!/https:\/\/docs.google.com\/forms\/*/.test(url)) {
             throw {message: "Неподходящая страница"}
         }
         const split = url.split(/[? /]+/);
-        return split[split.indexOf('e') + 1]
+        if (split.indexOf('e') !== -1) {
+            return split[split.indexOf('e') + 1]
+        }
+        if (split.indexOf('d') !== -1) {
+            return split[split.indexOf('d') + 1]
+        }
+        return split[split.indexOf('forms') + 1]
     }
 
     getForm(callback, onError) {
-        chrome.tabs.query({active: true, url: "https://docs.google.com/forms/d/e/*", currentWindow: true}, (tabs) => {
+        chrome.tabs.query({active: true, url: "https://docs.google.com/forms/*", currentWindow: true}, (tabs) => {
             let tab = tabs[0];
             if (tab) {
                 chrome.scripting.executeScript(
@@ -42,7 +48,7 @@ class GoogleFormsService {
     inputAnswers(answers, replace_answers) {
         chrome.tabs.query({
             active: true,
-            url: "https://docs.google.com/forms/d/e/*",
+            url: "https://docs.google.com/forms/*",
             currentWindow: true
         }, function (tabs) {
             let tab = tabs[0];
