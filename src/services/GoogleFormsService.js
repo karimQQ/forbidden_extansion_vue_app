@@ -1,7 +1,9 @@
+import {API_URL} from "@/config";
+
 class GoogleFormsService {
     async getAnswers(form_id) {
         try {
-            return (await fetch(`https://forbiddengdz.ru/api/google_forms/answers/?form_id=${form_id}`)).json()
+            return (await fetch(`${API_URL}/api/google_forms/answers/?form_id=${form_id}`)).json()
         } catch (e) {
             throw {message: "Ошибка при получении ответов. Возможно у Байдена сломался сервак."}
         }

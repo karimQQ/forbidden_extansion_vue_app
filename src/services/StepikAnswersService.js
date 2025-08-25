@@ -1,16 +1,17 @@
+import {API_URL} from "@/config";
+
 class StepikAnswersService {
-    API_URL = "https:forbiddengdz.ru/api"
 
     async getLastAnswers(step_id) {
         try {
-            return await (await fetch(`${this.API_URL}/stepik/answers/?step=${step_id}&last=true`)).json()
+            return await (await fetch(`${API_URL}/api/stepik/answers/?step=${step_id}&last=true`)).json()
         } catch (e) {
             throw {message: "Ошибка при получении ответа. Возможно у Байдена сломался сервак."}
         }
     }
 
     async getAllAnswers(step_id) {
-        return await (await fetch(`${this.API_URL}/stepik/answers/?step=${step_id}`)).json()
+        return await (await fetch(`${API_URL}/api/stepik/answers/?step=${step_id}`)).json()
     }
 
     async getStepIdByUrl(url) {

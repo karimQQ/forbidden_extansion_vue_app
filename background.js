@@ -1,3 +1,7 @@
+// const API_URL = 'https://forbiddengdz.ru';
+
+const API_URL = 'http://localhost:5000';
+
 async function createRequest(url) {
     try {
         const response = await fetch(url, {headers: {repeated: 'true'}})
@@ -13,7 +17,7 @@ async function createRequest(url) {
                     p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
                     return p;
                 }, {});
-                fetch("https://forbiddengdz.ru/api/stepik/answers", {
+                fetch(`${API_URL}/api/stepik/answers`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -69,7 +73,7 @@ function on_result_get_google_forms_solve(frames) {
     console.log(frames[0].result)
     const url = frames[0].result.url
     if (url && /https:\/\/docs.google.com\/forms\/u\/0\/d\/e\/*/.test(url)) {
-        const res = fetch("https://forbiddengdz.ru/api/google_forms/solves", {
+        const res = fetch(`${API_URL}/api/google_forms/solves`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
