@@ -1,6 +1,6 @@
-// const API_URL = 'https://forbiddengdz.ru';
+const API_URL = 'https://forbiddengdz.ru';
 
-const API_URL = 'http://localhost:5000';
+// const API_URL = 'http://localhost:7272';
 
 async function createRequest(url) {
     try {
